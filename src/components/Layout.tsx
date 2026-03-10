@@ -11,6 +11,7 @@ export const Layout = () => {
     { name: 'Competitions', path: '/competitions' },
     { name: 'Teams', path: '/teams' },
     { name: 'Players', path: '/players' },
+    { name: 'Stats', path: '/stats' },
   ];
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);

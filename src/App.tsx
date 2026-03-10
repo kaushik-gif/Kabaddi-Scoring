@@ -13,6 +13,7 @@ import { CompetitionDetail } from './components/CompetitionDetail';
 import { Teams } from './components/Teams';
 import { Players } from './components/Players';
 import { ScoringPage } from './components/ScoringPage';
+import { StatsPage } from './components/StatsPage';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="competitions/:id" element={<CompetitionDetail />} />
             <Route path="teams" element={<Teams />} />
             <Route path="players" element={<Players />} />
+            <Route path="stats" element={<StatsPage />} />
           </Route>
           <Route path="/scoring/:matchId" element={<ScoringPage />} />
         </Routes>

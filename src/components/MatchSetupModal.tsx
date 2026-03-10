@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
+import { LineupSetupModal } from './LineupSetupModal';
 
 interface MatchSetupModalProps {
   onClose: () => void;
@@ -17,6 +18,7 @@ export const MatchSetupModal: React.FC<MatchSetupModalProps> = ({ onClose, compe
   const [teamBId, setTeamBId] = useState<number | ''>('');
   const [halfDuration, setHalfDuration] = useState<number>(20);
   const [error, setError] = useState('');
+  const [createdMatchId, setCreatedMatchId] = useState<number | null>(null);
 
   const availableTeams = competitionId
     ? teams.filter((t) => competitions.find((c) => c.id === competitionId)?.teamIds.includes(t.id))
@@ -55,9 +57,25 @@ export const MatchSetupModal: React.FC<MatchSetupModalProps> = ({ onClose, compe
       scoringLog: [],
     });
 
-    onClose();
-    navigate(`/scoring/${matchId}`);
+    setCreatedMatchId(matchId);
   };
+
+  const handleLineupComplete = () => {
+    onClose();
+    if (createdMatchId) {
+      navigate(`/scoring/${createdMatchId}`);
+    }
+  };
+
+  if (createdMatchId) {
+    return (
+      <LineupSetupModal 
+        matchId={createdMatchId} 
+        onClose={() => setCreatedMatchId(null)} 
+        onComplete={handleLineupComplete} 
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={onClose}>
